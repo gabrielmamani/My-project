@@ -1,0 +1,15 @@
+# Reglas de Desarrollo: Gunbound Mobile 2.5D (Unity 6)
+
+## Entorno y Versión
+- Motor: Unity 6 LTS. Gráficos: URP (2.5D, cámara ortográfica).
+- Plataforma: Mobile (Android/iOS) en orientación horizontal (16:9).
+
+## Protocolo MCP de Unity
+- NO edites archivos `.unity` o `.prefab` modificando texto YAML manualmente. Usa siempre las herramientas del MCP para instanciar, buscar o configurar GameObjects y componentes en la escena.
+- Consulta los logs de consola de Unity tras modificar scripts para verificar compilación sin errores.
+
+## Código C# y Arquitectura
+- Sigue estándares de C# limpios: PascalCase para métodos/clases, camelCase para campos privados (`_miCampo`).
+- Los componentes deben ir desacoplados: usa eventos (`System.Action` o `UnityEvent`) en vez de llamadas directas y monolíticas.
+- La física balística NO debe depender de Rigidbody2D estándar sin control: los cálculos cinemáticos con viento deben ser puramente matemáticos y deterministas para facilitar la futura migración multijugador.
+- Usa `[SerializeField] private` en lugar de campos `public` innecesarios.
