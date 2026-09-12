@@ -13,3 +13,7 @@
 - Los componentes deben ir desacoplados: usa eventos (`System.Action` o `UnityEvent`) en vez de llamadas directas y monolíticas.
 - La física balística NO debe depender de Rigidbody2D estándar sin control: los cálculos cinemáticos con viento deben ser puramente matemáticos y deterministas para facilitar la futura migración multijugador.
 - Usa `[SerializeField] private` en lugar de campos `public` innecesarios.
+
+## Documentación y Flujo de Trabajo
+- Toda nueva característica o modificación debe alinearse con `Docs/REQUIREMENTS.md` y respetar el flujo definido en `Docs/WORKFLOW.md`.
+- Al completar o avanzar un hito/tarea, actualiza el estado correspondiente en `Docs/PROGRESS.md`.

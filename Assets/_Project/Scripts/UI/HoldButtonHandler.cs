@@ -12,7 +12,7 @@ namespace Gunbound.UI
     public class HoldButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
         [Header("Hold Settings")]
-        [SerializeField] private UnityEvent _onHeld;
+        [SerializeField] private UnityEvent _onHeld = new UnityEvent();
 
         private bool _isPressed = false;
 

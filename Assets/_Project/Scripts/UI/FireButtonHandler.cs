@@ -20,19 +20,34 @@ namespace Gunbound.UI
             }
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        private PlayerController GetActivePlayer()
         {
+            if (Gunbound.Managers.TurnManager.Instance != null && Gunbound.Managers.TurnManager.Instance.ActivePlayer != null)
+            {
+                return Gunbound.Managers.TurnManager.Instance.ActivePlayer;
+            }
             if (_playerController != null)
             {
-                _playerController.OnFireButtonDown();
+                return _playerController;
+            }
+            return FindAnyObjectByType<PlayerController>();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            PlayerController activePlayer = GetActivePlayer();
+            if (activePlayer != null)
+            {
+                activePlayer.OnFireButtonDown();
             }
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (_playerController != null)
+            PlayerController activePlayer = GetActivePlayer();
+            if (activePlayer != null)
             {
-                _playerController.OnFireButtonUp();
+                activePlayer.OnFireButtonUp();
             }
         }
     }

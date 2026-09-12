@@ -20,6 +20,9 @@ namespace Gunbound.Player
         public event Action<float> OnAngleChanged;
 
         public float CurrentAngle => _currentAngle;
+        public float MinAngle => _minAngle;
+        public float MaxAngle => _maxAngle;
+        public Transform FirePoint => _firePoint;
 
         private void Awake()
         {
@@ -29,6 +32,16 @@ namespace Gunbound.Player
             }
 
             UpdateTurretRotation(1);
+        }
+
+        /// <summary>
+        /// Dynamically reconfigures minimum and maximum elevation angle boundaries.
+        /// </summary>
+        public void SetAngleBoundaries(float minAngle, float maxAngle)
+        {
+            _minAngle = minAngle;
+            _maxAngle = maxAngle;
+            SetAngle(Mathf.Clamp(_currentAngle, _minAngle, _maxAngle));
         }
 
         /// <summary>
@@ -73,13 +86,14 @@ namespace Gunbound.Player
         }
 
         /// <summary>
-        /// Visually rotates the turret transform.
+        /// Visually rotates the turret transform based on elevation angle.
+        /// Parent scale handles horizontal orientation.
         /// </summary>
-        public void UpdateTurretRotation(int facingDirection)
+        public void UpdateTurretRotation(int facingDirection = 1)
         {
             if (_turretTransform == null) return;
 
-            float zRotation = _currentAngle * facingDirection;
+            float zRotation = _currentAngle;
             _turretTransform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
         }
     }
